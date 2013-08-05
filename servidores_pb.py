@@ -9,20 +9,15 @@ servidores = []
 url_base = "http://sagres.tce.pb.gov.br/"
 
 
-def utf_8_encoder(unicode_csv_data):
-    for line in unicode_csv_data:
-        yield line.encode('utf-8')
-
 cidades_pb = {}
 with open('cidades_pb.csv', 'r') as cidades_csv:
-    for linha in csv.reader(utf_8_encoder(cidades_csv)):
-        cidades_pb[linha[0]] = unicode(linha[1], 'utf-8')
+    for linha in csv.reader(cidades_csv):
+        cidades_pb[linha[0]] = linha[1]
 
-counter = 0
 with open('ugestoras_pb.csv', 'r') as ugestoras_csv:
-    for index, entidade in enumerate(csv.reader(ugestoras_csv)):
+    for entidade in csv.reader(ugestoras_csv):
         entidade_cod = entidade[0]
-        entidade_desc = entidade[1].decode('utf-8')
+        entidade_desc = entidade[1]
 
         tentativas = 0
         sucesso = False
@@ -94,15 +89,13 @@ with open('ugestoras_pb.csv', 'r') as ugestoras_csv:
                                         'td:nth-of-type(2) font'
                                     )[0].string.strip().title()
 
-                                    print unicode(
-                                        u'%s,%s,%s,"%s",%s' % (
-                                            unicode(cidades_pb[entidade_cod[3:]]).decode('utf-8'),
-                                            unicode(entidade_desc).decode('utf-8'),
-                                            unicode(tipo_label).decode('utf-8'),
-                                            unicode(cargo_label).decode('utf-8'),
-                                            unicode(nome).decode('utf-8'),
-                                        )
-                                    ).encode('utf-8')
+                                    print u'%s,%s,%s,"%s",%s' % (
+                                        cidades_pb[entidade_cod[3:]],
+                                        entidade_desc,
+                                        tipo_label,
+                                        cargo_label,
+                                        nome,
+                                    )
             except Exception:
                 sleep(120)
                 continue
