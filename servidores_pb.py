@@ -19,6 +19,8 @@ with open('ugestoras_pb.csv', 'r') as ugestoras_csv:
         entidade_cod = entidade[0]
         entidade_desc = entidade[1]
 
+        # O sagres fecha a conexao apos alguns requests. Nesse caso,
+        # esperamos algum tempo, e reiniciamos daquela unidade gestora
         tentativas = 0
         sucesso = False
         while not sucesso and tentativas < 5:
@@ -30,6 +32,8 @@ with open('ugestoras_pb.csv', 'r') as ugestoras_csv:
                 #Ano 'hardcodado' p/ 2013
                 for ano in ['2013']:
                     session.get(url_base)
+                    # Equivale a selecionar municipio, ano e entidade
+                    # no combobox
                     session.post(
                         '%s/%s' % (url_base, 'index.php?acao=add'),
                         data={
@@ -96,6 +100,8 @@ with open('ugestoras_pb.csv', 'r') as ugestoras_csv:
                                         cargo_label,
                                         nome,
                                     )
+            # Quando o sagres fechar a conexao, aguarda 2min e depois
+            # volta para o inicio da mesma unidade gestora
             except Exception:
                 sleep(120)
                 continue
