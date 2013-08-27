@@ -4,6 +4,10 @@ from bs4 import BeautifulSoup
 from time import sleep
 import csv
 import requests
+import sys
+
+reload(sys)
+sys.setdefaultencoding('utf-8')
 
 servidores = []
 url_base = "http://sagres.tce.pb.gov.br/"
