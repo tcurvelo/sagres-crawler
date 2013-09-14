@@ -1,3 +1,5 @@
+Crawler para gerar lista de servidores municipais da Paraíba a partir 
+do `SAGRES <http://sagres.tce.pb.gov.br/>`_
 
 Primeiro instale as dependências:
 
